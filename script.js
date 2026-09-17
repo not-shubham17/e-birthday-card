@@ -6,12 +6,7 @@
 const config = {
   name: "Chatuli Didi",
   message:
-    "Happy Birthday Chatuli Didi! 🥳 Hope you take a break from pulling teeth and go on more crazy Ladakh adventures! (Just maybe pack a little less luggage next time? 😂) Love you to the mountains and back! 🏔️🦷💖",
-  galleryImages: [
-    "photo1.jpg",
-    "photo2.jpg",
-    "photo3.jpg"
-  ],
+    "Happy Birthday Chatuli Didi! 🥳 Hope you take a break from pulling teeth and go on more crazy Ladakh adventures! (Just maybe pack a little less luggage next time? 😂) Love you to the mountains and back! 🏔️🦷💖"
 };
 
 // ── DOM REFERENCES ────────────────────────────
@@ -23,11 +18,6 @@ const $cakeScene = document.getElementById("cake-scene");
 const $blowInstruct = document.getElementById("blow-instruction");
 const $volumeBar = document.getElementById("volume-bar");
 const $candlesRow = document.getElementById("candles-row");
-const $btnGallery = document.getElementById("btn-gallery");
-const $gallery = document.getElementById("gallery-section");
-const $galleryMsg = document.getElementById("gallery-message");
-const $galleryGrid = document.getElementById("gallery-grid");
-const $btnBack = document.getElementById("btn-back");
 const $particles = document.getElementById("particles");
 
 // ── STATE ─────────────────────────────────────
@@ -46,9 +36,7 @@ let sustainCounter = 0;
 // ── 2. INIT — Apply config to DOM ─────────────
 (function init() {
   if ($modalTitle) $modalTitle.textContent = `Happy Birthday ${config.name}! 🎂`;
-  if ($galleryMsg) $galleryMsg.textContent = config.message;
 
-  if ($galleryGrid) buildGallery();
   if ($particles) spawnParticles();
 })();
 
@@ -149,12 +137,6 @@ function blowOutCandles() {
     const text = document.getElementById("feed-text");
     if (text) text.classList.add("feed");
   }, 1000);
-
-  // Reveal gallery button
-  setTimeout(() => {
-    $btnGallery.classList.remove("hidden");
-    $btnGallery.style.animation = "slide-up .5s cubic-bezier(.34,1.56,.64,1)";
-  }, 3500);
 }
 
 // ── 6. CONFETTI ───────────────────────────────
@@ -189,54 +171,6 @@ function fireConfetti() {
       colors: ["#f9a8d4", "#c4b5fd", "#93c5fd", "#6ee7b7", "#fde047", "#fdba74"],
     });
   }, 200);
-}
-
-// ── 7. GALLERY ────────────────────────────────
-function buildGallery() {
-  config.galleryImages.forEach((src, i) => {
-    const card = document.createElement("div");
-    card.className = "gallery-card";
-    card.style.animationDelay = `${i * 0.08}s`;
-
-    const img = document.createElement("img");
-    img.src = src;
-    img.alt = `Memory ${i + 1}`;
-    img.loading = "lazy";
-
-    card.appendChild(img);
-    card.addEventListener("click", () => openLightbox(src));
-    $galleryGrid.appendChild(card);
-  });
-}
-
-$btnGallery.addEventListener("click", () => {
-  $cakeScene.classList.add("hidden");
-  $gallery.classList.remove("hidden");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
-$btnBack.addEventListener("click", () => {
-  $gallery.classList.add("hidden");
-  $cakeScene.classList.remove("hidden");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
-
-// ── 8. LIGHTBOX ───────────────────────────────
-function openLightbox(src) {
-  const overlay = document.createElement("div");
-  overlay.className = "lightbox-overlay";
-
-  const img = document.createElement("img");
-  img.src = src;
-  img.alt = "Photo enlarged";
-
-  overlay.appendChild(img);
-  document.body.appendChild(overlay);
-
-  overlay.addEventListener("click", () => {
-    overlay.style.animation = "fadeOut .25s ease forwards";
-    setTimeout(() => overlay.remove(), 260);
-  });
 }
 
 // ── 9. FLOATING PARTICLES ─────────────────────
