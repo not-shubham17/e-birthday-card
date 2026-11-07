@@ -38,6 +38,7 @@ let sustainCounter = 0;
   if ($modalTitle) $modalTitle.textContent = `Happy Birthday ${config.name}! 🎂`;
 
   if ($particles) spawnParticles();
+  initCatStickers();
 })();
 
 // ── 3. START BUTTON — request mic ─────────────
@@ -113,12 +114,21 @@ function blowOutCandles() {
   });
   smokes.forEach((s) => s.classList.add("active"));
 
-  // Update instruction
-  $blowInstruct.textContent = "🎉 You did it! The candles are out!";
-  $blowInstruct.style.animation = "none";
+  // Hide blow instruction smoothly
+  if ($blowInstruct) {
+    $blowInstruct.style.transition = "opacity 0.4s ease";
+    $blowInstruct.style.opacity = "0";
+    setTimeout(() => {
+      $blowInstruct.style.display = "none";
+    }, 400);
+  }
 
   // Hide volume meter
-  document.querySelector(".volume-meter").style.opacity = "0";
+  const volMeter = document.querySelector(".volume-meter");
+  if (volMeter) {
+    volMeter.style.transition = "opacity 0.4s ease";
+    volMeter.style.opacity = "0";
+  }
 
   // 🎊 Confetti
   fireConfetti();
@@ -200,4 +210,34 @@ function hideModal() {
 
 function showCakeScene() {
   setTimeout(() => $cakeScene.classList.remove("hidden"), 450);
+}
+
+// ── CAT STICKER INTERACTIONS ──────────────────
+function initCatStickers() {
+  const popcatSticker = document.getElementById("sticker-popcat");
+  if (popcatSticker) {
+    const popcatImg = popcatSticker.querySelector("img");
+    let isPopped = false;
+    const triggerPop = () => {
+      if (isPopped) return;
+      isPopped = true;
+      if (popcatImg) popcatImg.src = "images/stickers/popcat_open.png";
+      popcatSticker.classList.add("popped");
+      setTimeout(() => {
+        if (popcatImg) popcatImg.src = "images/stickers/popcat_closed.png";
+        popcatSticker.classList.remove("popped");
+        isPopped = false;
+      }, 420);
+    };
+    popcatSticker.addEventListener("click", triggerPop);
+    popcatSticker.addEventListener("mouseenter", triggerPop);
+  }
+
+  document.querySelectorAll(".cat-sticker").forEach((sticker) => {
+    sticker.addEventListener("click", () => {
+      sticker.classList.remove("sticker-bounce");
+      void sticker.offsetWidth; // force reflow
+      sticker.classList.add("sticker-bounce");
+    });
+  });
 }
