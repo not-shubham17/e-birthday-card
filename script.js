@@ -4,9 +4,9 @@
 
 // ── 1. MODULAR CONFIGURATION ──────────────────
 const config = {
-  name: "Girija Didi",
+  name: "Swareet Bhau",
   message:
-    "Happy Birthday Girija Didi! 🥳 Hope you take a break from pulling teeth and go on more crazy Ladakh adventures! (Just maybe pack a little less luggage next time? 😂) Love you to the mountains and back! 🏔️🦷💖"
+    "Happy Birthday Swareet Bhau! 🥳 Have a fantastic day and an amazing year ahead! 🎉💖"
 };
 
 // ── DOM REFERENCES ────────────────────────────
